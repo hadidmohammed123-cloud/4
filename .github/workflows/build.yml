@@ -21,20 +21,17 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Gradle
+      - name: Set up Gradle 8.8
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.8'
 
       - name: Find Gradle project
         id: project
         run: |
-          echo "Repository contents:"
-          pwd
-          ls -la
-          echo "Searching for build.gradle..."
-          find . -name build.gradle -not -path '*/.gradle/*'
           BUILD_FILE=$(find . -name build.gradle -not -path '*/.gradle/*' -print -quit)
           if [ -z "$BUILD_FILE" ]; then
-            echo "ERROR: build.gradle was not found!"
+            echo "build.gradle not found!"
             exit 1
           fi
           BUILD_DIR=$(dirname "$BUILD_FILE")
@@ -51,4 +48,3 @@ jobs:
           name: NarutoModAddon-fixed
           path: '**/build/libs/*.jar'
           if-no-files-found: error
-
