@@ -20,9 +20,8 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-          cache: gradle
 
-       - name: Set up Gradle
+      - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build mod
@@ -32,5 +31,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: NarutoModAddon-fixed
-          path: build/libs/*.jar
+          path: |
+            **/build/libs/*.jar
           if-no-files-found: error
